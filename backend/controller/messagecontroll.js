@@ -1,3 +1,4 @@
+import { errorHandler } from "../Error/error.js";
 import Conversation from "../models/conversationmodel.js";
 import Message from "../models/message.js";
 
@@ -31,3 +32,20 @@ export const sendMessage = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getMessage = async (req, res, next) => {
+  try {
+    const { id: userToMessage } = req.params
+    const senderId=req.user.id
+    const conversation = await Conversation.findOne({
+      participants:{$all:[senderId, userToMessage]},
+    }).populate("messages")
+    if (!conversation) {
+      return res.status(202).json({ message: "Conversation not found" });
+    }
+    const messages = conversation.messages
+    res.status(200).json(messages)
+  } catch (error) {
+    next(error)
+  }
+}
