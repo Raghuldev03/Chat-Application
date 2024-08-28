@@ -26,8 +26,10 @@ app.get("/", (req, res) => {
 // Routing
 import authroute from "./routes/route.js"
 import messageroute from "./routes/messageroute.js"
+import userRoutes from "./routes/userroute.js"
 app.use("/api/auth", authroute);
 app.use("/api/messages", messageroute);
+app.use("/api/users",userRoutes)
 
 app.listen(PORT, () => {
     console.log("Server is running on port "+ PORT)
