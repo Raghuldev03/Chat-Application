@@ -25,7 +25,9 @@ app.get("/", (req, res) => {
 
 // Routing
 import authroute from "./routes/route.js"
-app.use("/api/auth", authroute)
+import messageroute from "./routes/messageroute.js"
+app.use("/api/auth", authroute);
+app.use("/api/messages", messageroute);
 
 app.listen(PORT, () => {
     console.log("Server is running on port "+ PORT)
@@ -36,4 +38,4 @@ app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500
     const message = err.message || "Internal Server Error"
     res.status(statusCode).json({ success:false, statusCode, message })
-})
+})  
