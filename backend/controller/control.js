@@ -44,8 +44,31 @@ export const signup = async (req, res,next) => {
 
 
 
-export const login = (req, res) => {};
+export const login = async(req, res, next) => {
+    try {
+        const { email, password } = req.body
+        const validUser = await User.findOne({ email })
+        if (!validUser) {
+            return next(errorHandler(404, "User not found"))
+        }
+
+        const validpassword = bcryptjs.compareSync(password, validUser.password)
+        if (!validpassword) {
+            return next(errorHandler(401, "Invalid Email or Password"))
+        }
+        const token = jwt.sign({ id: validUser._id }, process.env.JWT_MN);
+        res.cookie("access_token", token, { httpOnly: true }).status(200).json({
+          _id: validUser._id,
+          username:validUser.username,
+          email: validUser.email,
+          profilepic: validUser.profilepic,
+        });
+    } catch (error) {
+        next(error)
+    }
+
+};
 
 
 
-export const logout = (req, res) => {};
+export const logout = async(req, res) => {};
