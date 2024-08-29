@@ -10,7 +10,7 @@ const Sidebar = () => {
       style={{
         borderRadius: "10px",
         border: "none",
-        height: "500px", 
+        height: "600px",
         width: "100%",
         backgroundColor: "ButtonShadow",
         display: "flex",

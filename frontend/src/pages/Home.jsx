@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "../component/sidebar/Sidebar";
+import MessageContainer from "../component/messsages/MessageContainer";
 
 const Home = () => {
   return (
@@ -8,9 +9,9 @@ const Home = () => {
         className="col-md-6 col-lg-4 mx-auto bg-light border-right"
         style={{
           minHeight: "50vh",
-          height: "100",
-          maxWidth: "500px",
-          width: "100%",
+          height: "200",
+          maxWidth: "900px",
+          width: "500%",
           position: "absolute",
           top: "50%",
           left: "50%",
@@ -18,13 +19,12 @@ const Home = () => {
         }}
       >
         <div style={{ height: "100%" }}>
-          <Sidebar />
           <div
             className="container p-4 d-flex justify-content-center align-items-center"
             style={{ height: "100%" }}
           >
-            {" "}
-            {/* Update this div */}
+            <Sidebar />
+            <MessageContainer />
           </div>
         </div>
       </div>
