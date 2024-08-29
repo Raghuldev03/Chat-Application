@@ -11,7 +11,7 @@ const MessageContainer = () => {
         border: "none",
         height: "600px",
         width: "100%",
-        backgroundColor: "ButtonShadow",
+        backgroundColor: "aliceblue",
         display: "flex",
         flexDirection: "column",
       }}
