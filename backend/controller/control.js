@@ -31,12 +31,12 @@ export const signup = async (req, res,next) => {
     try {
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_MN)
         await newUser.save()
-        res.cookie("access_token",token,{httpOnly}).status(201).json({
-            _id: newUser._id,
-            username: newUser.username,
-            email: newUser.email,
-            profilepic:newUser.profilepic
-        })
+        res.cookie("access_token", token, { httpOnly: true }).status(201).json({
+          _id: newUser._id,
+          username: newUser.username,
+          email: newUser.email,
+          profilepic: newUser.profilepic,
+        });
     } catch (error) {
        next(error)
     }

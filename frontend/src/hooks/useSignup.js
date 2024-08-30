@@ -7,7 +7,7 @@ const handleInputError = ({
   email,
   password,
   confirmpassword,
-  gender
+  gender,
 }) => {
   if (!username || !email || !password || !confirmpassword || !gender) {
     toast.error("Please Fill all the fields");
@@ -15,7 +15,7 @@ const handleInputError = ({
   }
   if (password !== confirmpassword) {
     toast.error("Passwords do not match");
-    return true
+    return true;
   }
   return false;
 };
@@ -29,7 +29,7 @@ const useSignup = () => {
     email,
     password,
     confirmpassword,
-    gender
+    gender,
   }) => {
     const checkError = handleInputError({
       username,
