@@ -48,7 +48,8 @@ const Signup = () => {
             id="username"
             placeholder="Enter your username"
             value={formData.username}
-            onChange={(e) => setFormData({ ...formData, username: e.target.value })
+            onChange={(e) =>
+              setFormData({ ...formData, username: e.target.value })
             }
           />
         </div>
@@ -103,8 +104,19 @@ const Signup = () => {
             selectedGender={formData.gender}
           />
         </div>
-        <button type="submit" className="btn btn-primary w-100">
-          SignUp
+        <button
+          className="btn btn-primary btn-block font-weight-bold w-100"
+          disabled={loading}
+        >
+          {loading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            "Sign Up"
+          )}
         </button>
       </form>
       <div className="mt-3 text-center">
