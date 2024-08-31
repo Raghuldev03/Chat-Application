@@ -1,7 +1,10 @@
 import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
-import cookieParser  from "cookie-parser"
+import cookieParser from "cookie-parser"
+import { server,app } from "./socket/socket.js";
+
+
 dotenv.config()
 
 mongoose.connect(process.env.MONGO_URI)
@@ -12,7 +15,6 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(err);
     })
 
-const app = express()
 
 const PORT = process.env.PORT || 3000
 
@@ -27,11 +29,13 @@ app.get("/", (req, res) => {
 import authroute from "./routes/route.js"
 import messageroute from "./routes/messageroute.js"
 import userRoutes from "./routes/userroute.js"
+
 app.use("/api/auth", authroute);
 app.use("/api/messages", messageroute);
 app.use("/api/users",userRoutes)
 
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
     console.log("Server is running on port "+ PORT)
 })
 
@@ -39,5 +43,5 @@ app.listen(PORT, () => {
 app.use((err, req, res, next) => { 
     const statusCode = err.statusCode || 500
     const message = err.message || "Internal Server Error"
-    res.status(statusCode).json({ success:false, statusCode, message })
+    return res.status(statusCode).json({ success:false, statusCode, message })
 })  

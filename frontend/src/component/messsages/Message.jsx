@@ -33,26 +33,38 @@ const Message = ({ message }) => {
             </div>
           </div>
           <div className="d-flex align-items-center">
-            <div className="avatar me-2">
+            <div className="avatar me-2 position-relative">
               <img
                 src={profilePic}
                 alt="User Avatar"
                 className="rounded-circle"
                 style={{ width: "40px", height: "40px" }}
               />
+              <div className="online-status position-absolute top-0 end-0">
+                <div
+                  className="rounded-circle bg-success"
+                  style={{ width: "10px", height: "10px" }}
+                ></div>
+              </div>
             </div>
           </div>
         </>
       ) : (
         <>
           <div className="d-flex align-items-center">
-            <div className="avatar me-2">
+            <div className="avatar me-2 position-relative">
               <img
                 src={profilePic}
                 alt="User Avatar"
                 className="rounded-circle"
                 style={{ width: "40px", height: "40px" }}
               />
+              <div className="online-status position-absolute top-0 end-0">
+                <div
+                  className="rounded-circle bg-success"
+                  style={{ width: "10px", height: "10px" }}
+                ></div>
+              </div>
             </div>
           </div>
           <div className={`bg-primary text-white rounded p-2 ${msgBgColor}`}>

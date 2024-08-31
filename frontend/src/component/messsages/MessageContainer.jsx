@@ -37,20 +37,20 @@ const MessageContainer = () => {
           <div
             className="card-body"
             style={{
-              overflowY: "auto", // add this
-              flex: 1, // add this
+              overflowY: "auto",
+              flex: 1,
             }}
           >
             <Messages />
           </div>
           <div
             style={{
-              position: "absolute", // add this
-              bottom: 0, // add this
-              left: 0, // add this
-              width: "100%", // add this
-              backgroundColor: "aliceblue", // add this
-              borderTop: "1px solid #ccc", // add this
+              position: "absolute", 
+              bottom: 0,
+              left: 0,
+              width: "100%",
+              backgroundColor: "aliceblue",
+              borderTop: "1px solid #ccc",
             }}
           >
             <MessageInput />
