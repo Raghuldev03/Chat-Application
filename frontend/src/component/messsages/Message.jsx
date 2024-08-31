@@ -2,19 +2,26 @@ import React from "react";
 import userAvatar from "../../assets/user.png";
 import { useAuthContext } from "../../context/AuthContext";
 import useConversation from "../../../zustand/useConversation";
+import { formatTime } from "../../hooks/formatTime";
 
 const Message = ({ message }) => {
   const { authUser } = useAuthContext();
   const { selectedConversation } = useConversation();
 
-  const messageFromMe = message.senderId === authUser._id;
+
+  const messageFromMe = authUser && message.senderId === authUser._id;
+  console.log("messageFromMe:", messageFromMe);
+
   const chatClassName = messageFromMe ? "chat-end" : "chat-start";
 
-  const profilePic = messageFromMe
-    ? authUser.profilepic
-    : selectedConversation?.profilepic;
+ const profilePic = messageFromMe
+   ? authUser.profilepic
+   : selectedConversation?.profilepic;
 
   const msgBgColor = messageFromMe ? "bg-success" : "bg-secondary";
+
+  const createdAt = message.createdAt || new Date().toISOString();
+  const formattedTime = formatTime(createdAt);
 
   return (
     <div
@@ -27,9 +34,7 @@ const Message = ({ message }) => {
           <div className={`bg-primary text-white rounded p-2 ${msgBgColor}`}>
             <p>{message.message}</p>
             <div style={{ marginTop: -20 }}>
-              <small style={{ fontSize: 10 }}>
-                {new Date(message.createdAt).toLocaleTimeString()}
-              </small>
+              <small style={{ fontSize: 10 }}>{formattedTime}</small>
             </div>
           </div>
           <div className="d-flex align-items-center">
@@ -70,9 +75,7 @@ const Message = ({ message }) => {
           <div className={`bg-primary text-white rounded p-2 ${msgBgColor}`}>
             <p>{message.message}</p>
             <div style={{ marginTop: -20 }}>
-              <small style={{ fontSize: 10 }}>
-                {new Date(message.createdAt).toLocaleTimeString()}
-              </small>
+              <small style={{ fontSize: 10 }}>{formattedTime}</small>
             </div>
           </div>
         </>

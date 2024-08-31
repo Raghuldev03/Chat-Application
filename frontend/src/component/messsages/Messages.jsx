@@ -1,10 +1,13 @@
 import React, { useRef } from "react";
 import Message from "./Message";
 import useGetMessages from "../../hooks/useGetMessages";
+import useListenMessages from "../../hooks/useListenMessages";
 
 const Messages = () => {
   const { messages = [], loading } = useGetMessages();
-
+  
+  useListenMessages()
+  
   const messagesArray = Array.isArray(messages) ? messages : [];
 
   return (
@@ -12,8 +15,8 @@ const Messages = () => {
       {!loading && messagesArray.length === 0 && (
         <p className="text-center text-secondary">No messages yet.</p>
       )}
-      {messagesArray.map((message) => (
-        <div key={message._id} className="mb-2">
+      {messagesArray.map((message,index) => (
+        <div key={message._id || message.id || index} className="mb-2">
           <Message message={message} />
         </div>
       ))}

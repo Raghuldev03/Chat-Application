@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import UserAvatar from '../../assets/user.png'
 import useConversation from '../../../zustand/useConversation';
+import { useSocketContext } from '../../context/SocketContext';
 
 const Conversation = ({ conversation, lastIndex }) => {
 
   const { selectedConversation, setSelectedConversation } = useConversation()
 
   const isSelected = selectedConversation?._id === conversation._id;
-
   
+  const{onlineUsers}=useSocketContext()
+  const isOnline=onlineUsers.includes(conversation._id)
+
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseOver = () => {
