@@ -1,17 +1,22 @@
 import React from "react";
-import Conver from "./Conver";
+import Conversation from "./Conversation";
+import useGetConservation from "../../hooks/UseGetConservation";
 
 const Coversations = () => {
+  const { loading, conversations } = useGetConservation()
   return (
     <div className="py-2 d-flex flex-column overflow-auto">
-      <Conver />
-      <Conver />
-      <Conver />
-      <Conver />
-      <Conver />
-      <Conver />
-      <Conver />
-      <Conver />
+      {Array.isArray(conversations) ? (
+        conversations.map((conversation, index) => (
+          <Conversation
+            key={conversation._id}
+            conversation={conversation}
+            lastIndex={index === conversations.length - 1}
+          />
+        ))
+      ) : (
+        <div>No conversations available</div>
+      )}
     </div>
   );
 };
