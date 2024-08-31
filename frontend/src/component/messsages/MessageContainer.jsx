@@ -5,12 +5,11 @@ import useConversation from "../../../zustand/useConversation";
 import { TiMessages } from "react-icons/ti";
 
 const MessageContainer = () => {
-
   const { selectedConversation, setSelectedConversation } = useConversation();
   useEffect(() => {
-    return()=> setSelectedConversation(null)
-  }, [setSelectedConversation])
-  
+    return () => setSelectedConversation(null);
+  }, [setSelectedConversation]);
+
   return (
     <div
       className="card shadow-sm p-3"
@@ -22,29 +21,46 @@ const MessageContainer = () => {
         backgroundColor: "aliceblue",
         display: "flex",
         flexDirection: "column",
+        position: "relative", // add this
       }}
     >
       {!selectedConversation ? (
-        <NoChatSelected/>
-      ):(
-      <>
-        <div className="card-header bg-secondary text-white px-3 py-2 mb-2">
-          <span className="fw-bold">To: </span>
-          <span className="text-light fw-bold">
-            {selectedConversation?.username}
-          </span>
-        </div>
-        <div className="card-body">
-          <Messages />
-        </div>
-        <div style={{ justifyContent: "flex-end" }}>
-          <MessageInput />
-        </div>
-      </>
-    )}
+        <NoChatSelected />
+      ) : (
+        <>
+          <div className="card-header bg-secondary text-white px-3 py-2 mb-2">
+            <span className="fw-bold">To: </span>
+            <span className="text-light fw-bold">
+              {selectedConversation?.username}
+            </span>
+          </div>
+          <div
+            className="card-body"
+            style={{
+              overflowY: "auto", // add this
+              flex: 1, // add this
+            }}
+          >
+            <Messages />
+          </div>
+          <div
+            style={{
+              position: "absolute", // add this
+              bottom: 0, // add this
+              left: 0, // add this
+              width: "100%", // add this
+              backgroundColor: "aliceblue", // add this
+              borderTop: "1px solid #ccc", // add this
+            }}
+          >
+            <MessageInput />
+          </div>
+        </>
+      )}
     </div>
   );
 };
+
 const NoChatSelected = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   return (
@@ -57,4 +73,5 @@ const NoChatSelected = () => {
     </div>
   );
 };
+
 export default MessageContainer;
