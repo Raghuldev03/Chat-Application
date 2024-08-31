@@ -1,21 +1,46 @@
-import React from "react";
-import { FaPaperPlane } from "react-icons/fa"; // Import the send icon
+import React, { useState } from "react";
+import { FaPaperPlane } from "react-icons/fa";
+import useSendMessage from "../../hooks/useSendMessage";
 
 const MessageInput = () => {
+  const [message, setMessage] = useState("");
+  const { loading, sendMessage } = useSendMessage(); 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!message) {
+       return
+    }
+    await sendMessage(message);
+    setMessage("");
+  };
+
   return (
-    <form className="px-4 my-3">
+    <form className="px-4 my-3" onSubmit={handleSubmit}>
       <div className="input-group">
         <input
           type="text"
-          className="form-control border text-sm rounded-lg px-3 py-2 bg-gray-700 border-gray-600 bg-secondary text-white"
+          className="form-control border text-sm rounded-lg px-3 py-2 bg-secondary text-white"
           placeholder="Enter your text..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          disabled={loading}
         />
         <button
           type="submit"
           className="btn btn-secondary border rounded-lg px-3 py-2 d-flex align-items-center justify-content-center"
           style={{ color: "white", size: "20px" }}
+          disabled={loading}
         >
-          <FaPaperPlane size={15} />
+          {loading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            <FaPaperPlane size={15} />
+          )}
         </button>
       </div>
     </form>
