@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import useSendMessage from "../../hooks/useSendMessage";
 
-const MessageInput = () => {
+const MessageInput = ({ refreshMessages }) => {
   const [message, setMessage] = useState("");
   const { loading, sendMessage } = useSendMessage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!message) {
-      return;
-    }
+    if (!message) return;
+
     await sendMessage(message);
     setMessage("");
+    refreshMessages();
   };
 
   return (

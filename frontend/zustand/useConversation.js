@@ -5,8 +5,9 @@ const useConversation = create((set) => ({
   setSelectedConversation: (selectedConversation) =>
     set({ selectedConversation }),
 
-  messages: [],
+  messages: [], 
   setMessages: (messages) => set({ messages }),
+  resetConversation: () => set({ selectedConversation: null, messages: [] }),
 }));
 
-export default useConversation
+export default useConversation;

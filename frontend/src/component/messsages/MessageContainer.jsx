@@ -1,14 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import useConversation from "../../../zustand/useConversation";
 import { TiMessages } from "react-icons/ti";
+import useGetMessages from "../../hooks/useGetMessages";
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
+  const { messages, loading, fetchMessages } = useGetMessages();
+  const messagesEndRef = useRef(null);
+
   useEffect(() => {
     return () => setSelectedConversation(null);
   }, [setSelectedConversation]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const refreshMessages = async () => {
+    await fetchMessages(); 
+  };
+
+  const NoChatSelected = () => (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <TiMessages size={50} style={{ color: "grey" }} />
+      <p>No chat selected. Please select a conversation.</p>
+    </div>
+  );
 
   return (
     <div
@@ -21,7 +40,7 @@ const MessageContainer = () => {
         backgroundColor: "aliceblue",
         display: "flex",
         flexDirection: "column",
-        position: "relative", // add this
+        position: "relative",
       }}
     >
       {!selectedConversation ? (
@@ -42,10 +61,11 @@ const MessageContainer = () => {
             }}
           >
             <Messages />
+            <div ref={messagesEndRef} />
           </div>
           <div
             style={{
-              position: "absolute", 
+              position: "absolute",
               bottom: 0,
               left: 0,
               width: "100%",
@@ -53,23 +73,10 @@ const MessageContainer = () => {
               borderTop: "1px solid #ccc",
             }}
           >
-            <MessageInput />
+            <MessageInput refreshMessages={refreshMessages} />
           </div>
         </>
       )}
-    </div>
-  );
-};
-
-const NoChatSelected = () => {
-  const { selectedConversation, setSelectedConversation } = useConversation();
-  return (
-    <div className="d-flex align-items-center justify-content-center w-100 h-100">
-      <div className="px-4 text-center text-muted font-weight-semibold d-flex flex-column align-items-center gap-2">
-        <p className="h4 mb-2">Welcome</p>
-        <p className="mb-2">Select a chat to start messaging</p>
-        <TiMessages className="display-4" />
-      </div>
     </div>
   );
 };
