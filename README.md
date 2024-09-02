@@ -1,4 +1,4 @@
-# Chat Application
+# Chat Application (MERN Stack)
 
 ## Overview
 
@@ -29,3 +29,7 @@ This will start the Vite development server and open the application in your def
 >>  cd backend
 >>backend>> num run dev
 This will start the server
+
+## Contact
+
+For any questions or issues, please contact raghulraghul1551@gmail.com
